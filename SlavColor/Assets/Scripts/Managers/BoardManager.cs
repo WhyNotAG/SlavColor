@@ -39,6 +39,7 @@ public class BoardManager : MonoBehaviour, IManager
     [SerializeField] private GameObject[] _outerWallTiles;
     [SerializeField] private GameObject[] _foodTiles;
     [SerializeField] private GameObject _player;
+    
     private Transform boardHolder;
     private List<Vector3> gridPosition;
     public ManagerStatus managerStatus { get; private set; }
@@ -60,13 +61,13 @@ public class BoardManager : MonoBehaviour, IManager
     {
         boardHolder = new GameObject("Board").transform;
 
-        for (int x = -1; x < _columns + 1; x++)
+        for (int x = -10; x < _columns + 10; x++)
         {
-            for (int y = -1; y < _rows + 1; y++)
+            for (int y = -10; y < _rows + 10; y++)
             {
                 GameObject toInstantiate = _floorTiles[Random.Range(0, _floorTiles.Length)];
 
-                if (x == -1 || x == _columns || y == -1 || y == _rows)
+                if (x <= -1 || x >= _columns || y <= -1 || y >= _rows)
                 {
                     toInstantiate = _outerWallTiles[Random.Range(0, _outerWallTiles.Length)];
                 }
@@ -100,8 +101,8 @@ public class BoardManager : MonoBehaviour, IManager
     public void Startup()
     {
         Debug.Log("Board manager started");
-        _columns = 120;
-        _rows = 120;
+        _columns = 20;
+        _rows = 20;
         
         _wallCount = new Count(5, 9);
         _foodCount = new Count(1, 5);
